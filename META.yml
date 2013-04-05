@@ -1,0 +1,28 @@
+---
+name: YAMC
+version: 0.1
+author:
+   - Alessandro Pioli <apioli@cpan.org>
+ license: perl_2
+ distribution_type: module
+ requires:
+   Config: 0
+   Cwd: 0
+   Data::Dumper: 0
+   ExtUtils::Install: 0
+   IO::File: 0
+   perl: 5.00
+   YAML: 0.35
+ recommends:
+   Archive::Tar: 1.00
+   ExtUtils::Install: 0.3
+   ExtUtils::ParseXS: 2.02
+   Pod::Text: 0
+ build_requires:
+   Test: 0
+ resources:
+   license: http://dev.perl.org/licenses/
+ meta-spec:
+   version: 1.4
+   url: http://module-build.sourceforge.net/META-spec-v1.3.html
+ generated_by: Module::Build version 0.20
