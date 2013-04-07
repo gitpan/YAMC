@@ -20,7 +20,7 @@ our @EXPORT = qw(
 	
 );
 
-our $VERSION = '0.1';
+our $VERSION = '0.2';
 
 
 sub new {
@@ -46,12 +46,16 @@ sub hash {
 }
 sub Read{
     my ( $self )=@_;
+    defined ($self->fileName) or  die ("YAMC->Read() The File Name parameter is undef" );
+    (-e $self->fileName) or die ("YAMC->Read() The file".$self->fileName." does not exist");
+    (-R $self->fileName) or die ("YAMC->Read() The file".$self->fileName." is not readable ");
     $self->{_hash} = LoadFile($self->{_fileName});
     return $self->{_hash} ;
 }
 
 sub Save{
     my ( $self )=@_;
+   (-W $self->fileName) or die ("YAMC->Save() The file".$self->fileName." is not writeble ");
     DumpFile($self->{_fileName},$self->{_hash});
 }
 
@@ -76,7 +80,7 @@ sub Add{
 
 sub Replace{
     my ( $self, $key, $val ) = @_;
-    return add($self,$key,$val);
+    return Add($self,$key,$val);
 }
 
 sub Remove{
@@ -129,26 +133,26 @@ YAMC - Yast Another Configuration Module
 
 =head3 hash
 
-	This is the setter for hash whit configuration.
+	This is the setter for hash with configuration.
 	Parameters
 		hash: The hash conteins configuration.
 
-=head3 Read
+=head3 Read()
 
 	This is the method for reading configuration, the file name of configuration file mast be specified in fileName setter.
 	The return value is an hash with all configuration.
 
-=head3 Save
+=head3 Save()
 
 	This is the method for writing configuration, the file name of configuration file mast be specified in fileName setter 
 	and the hash mast be specified in hash setter.
 
-=head3 SaveTo
+=head3 SaveTo(filename)
 
 	This method is same to save, but have another parameters for specify another path for backup.
 
 
-=head3 Get
+=head3 Get(key)
 
 	This is method for get an specify element
 	Parameters
@@ -156,14 +160,14 @@ YAMC - Yast Another Configuration Module
 	Returns
 		Value marked by key.
 
-=head3 Add
+=head3 Add(key,value)
 
 	This is method for Add an new element
 	Parameters
 		Key: The Key of element
 		Value: The value
  
-=head3 Replace
+=head3 Replace(key,value)
 
 	This is method for Replace an element
 	Parameters
@@ -171,14 +175,14 @@ YAMC - Yast Another Configuration Module
 		Value: The value
  
 
-=head3 Remove
+=head3 Remove(key)
 
 	This is method for Remove an element
 	Parameters
 		Key: The Key of element
 		 
 
-=head3 Print
+=head3 Print()
 
 	This is method for Print the hash
 		 
